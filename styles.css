@@ -5,9 +5,9 @@ body {
 #playAgainBtn {
   margin-bottom: 8px;
   font-size: 16px;
-  background-color: lightblue;
+  background-color: rgb(117, 199, 226);
   color: white;
-  border: none;
+  border: white 1px solid;
   padding: 10px;
   cursor: pointer;
   transition: background-color 0.3s ease;
@@ -17,6 +17,7 @@ body {
   height: 40px;
 }
 .gameovermodal {
+  background-color: rgba(128, 128, 128, 0.337);
 }
 #playAgainBtn:hover {
   background-color: rgb(118, 211, 243);

@@ -1,3 +1,7 @@
+if (!localStorage.getItem("highScore")) {
+  localStorage.setItem("highScore", 0);
+}
+let GameOverModal = document.getElementById("gameovermodal");
 // Configuration constants
 const CONFIG = {
   boardWidth: 360,
@@ -178,18 +182,42 @@ function DrawScene() {
 
   // Draw score
   context.fillStyle = "white";
-  context.font = "30px Arial";
+  context.font = "25px Arial";
   context.fillText("Score: " + score, 10, 30);
 
+  // Draw High score
+  context.fillStyle = "white";
+  context.font = "20px Arial";
+  context.fillText("High Score: " + localStorage.getItem("highScore"), 230, 30);
   requestAnimationFrame(DrawScene);
 }
 
 function GameOver() {
-  console.log("Game Over");
+  let highscore = false;
+  if (score > localStorage.getItem("highScore")) {
+    localStorage.setItem("highScore", score);
+    highscore = true;
+  }
+  // console.log("Game Over");
   clearInterval(pipeInterval);
-  let GameOverModal = document.getElementById("gameovermodal");
+  GameOverModal.style.display = "block";
+  GameOverModal.style.position = "absolute";
+  GameOverModal.style.left = "39%";
+  GameOverModal.style.top = "35%";
+  GameOverModal.style.width = "200px";
+  GameOverModal.style.backgroundColor = "lightblue";
+  GameOverModal.style.padding = "10px";
+  GameOverModal.style.color = "white";
+
   if (GameOverModal) {
-    GameOverModal.innerHTML = `<h1>Game Over</h1><button id="playAgainBtn">Play Again</button>`;
+    let text;
+    if (highscore && score == localStorage.getItem("highScore") && score != 0) {
+      text = `Congratulations!<br></br> New High Score! ${score}`;
+    } else {
+      text = "Game Over";
+    }
+
+    GameOverModal.innerHTML = `<h3>${text} </h3><button id="playAgainBtn">Play Again</button>`;
     let PABtn = document.getElementById("playAgainBtn");
     PABtn.addEventListener("click", () => {
       gameOver = false;
@@ -197,6 +225,8 @@ function GameOver() {
       pipeArray = [];
       bird.velocityY = 0;
       GameOverModal.innerHTML = "";
+      GameOverModal.style.display = "none";
+
       InitializeGame();
     });
   }
