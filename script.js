@@ -98,6 +98,9 @@ function InitializeGame() {
   document.addEventListener("touchstart", (e) => {
     bird.jump();
   });
+  document.addEventListener("click", (e) => {
+    bird.jump();
+  });
   pipeInterval = setInterval(placePipes, 1500);
 
   requestAnimationFrame(DrawScene);
