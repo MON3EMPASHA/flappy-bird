@@ -201,9 +201,6 @@ function GameOver() {
   // console.log("Game Over");
   clearInterval(pipeInterval);
   GameOverModal.style.display = "block";
-  GameOverModal.style.position = "absolute";
-  GameOverModal.style.left = "39%";
-  GameOverModal.style.top = "35%";
   GameOverModal.style.width = "200px";
   GameOverModal.style.backgroundColor = "lightblue";
   GameOverModal.style.padding = "10px";

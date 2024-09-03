@@ -16,8 +16,16 @@ body {
   width: 150px;
   height: 40px;
 }
-.gameovermodal {
-  background-color: rgba(128, 128, 128, 0.337);
+#gameovermodal {
+  margin-bottom: 2px;
+  margin-top: 20px;
+}
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  flex-direction: column;
 }
 #playAgainBtn:hover {
   background-color: rgb(118, 211, 243);
