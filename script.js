@@ -188,7 +188,7 @@ function DrawScene() {
   // Draw High score
   context.fillStyle = "white";
   context.font = "20px Arial";
-  context.fillText("High Score: " + localStorage.getItem("highScore"), 230, 30);
+  context.fillText("High Score: " + localStorage.getItem("highScore"), 215, 30);
   requestAnimationFrame(DrawScene);
 }
 
