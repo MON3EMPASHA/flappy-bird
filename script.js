@@ -95,6 +95,9 @@ function InitializeGame() {
       bird.jump();
     }
   });
+  document.addEventListener("touchstart", (e) => {
+    bird.jump();
+  });
   pipeInterval = setInterval(placePipes, 1500);
 
   requestAnimationFrame(DrawScene);
