@@ -13,7 +13,7 @@ const CONFIG = {
   pipeHeight: 512,
   pipeGap: 180,
   gravity: 0.3,
-  jumpPower: 10,
+  jumpPower: 5,
   velocityX: 2,
 };
 const PipeIntervalTime = 800;
