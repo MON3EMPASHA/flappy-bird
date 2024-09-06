@@ -1,6 +1,7 @@
 if (!localStorage.getItem("highScore")) {
   localStorage.setItem("highScore", 0);
 }
+let lastFrameTime = 0;
 let GameOverModal = document.getElementById("gameovermodal");
 // Configuration constants
 const CONFIG = {
@@ -12,9 +13,12 @@ const CONFIG = {
   pipeHeight: 512,
   pipeGap: 180,
   gravity: 0.3,
-  jumpPower: 5,
+  jumpPower: 10,
   velocityX: 2,
 };
+const PipeIntervalTime = 800;
+const BirdGravityTime = 20;
+const PipeGravityTime = 7;
 
 // Game variables
 let board, context;
@@ -40,9 +44,12 @@ class Bird {
     context.drawImage(this.img, this.x, this.y, this.width, this.height);
   }
 
-  update() {
+  update(deltaTime) {
     this.velocityY += CONFIG.gravity;
-    this.y = Math.max(this.y + this.velocityY, 0);
+    this.y = Math.max(
+      this.y + this.velocityY * (deltaTime / BirdGravityTime),
+      0
+    );
     if (this.y > CONFIG.boardHeight) {
       gameOver = true;
     }
@@ -69,13 +76,14 @@ class Pipe {
     context.drawImage(this.img, this.x, this.y, this.width, this.height);
   }
 
-  update() {
-    this.x -= CONFIG.velocityX;
+  update(deltaTime) {
+    this.x -= CONFIG.velocityX * (deltaTime / PipeGravityTime);
   }
 }
 
 // Game initialization
 function InitializeGame() {
+  lastFrameTime = 0;
   board = document.getElementById("board");
   board.width = CONFIG.boardWidth;
   board.height = CONFIG.boardHeight;
@@ -106,7 +114,7 @@ function InitializeGame() {
   document.addEventListener("click", (e) => {
     bird.jump();
   });
-  pipeInterval = setInterval(placePipes, 1500);
+  pipeInterval = setInterval(placePipes, PipeIntervalTime);
 
   requestAnimationFrame(DrawScene);
 }
@@ -152,18 +160,22 @@ function detectCollision(a, b) {
 }
 
 // Game loop
-function DrawScene() {
+function DrawScene(currentTime) {
+  // console.log(currentTime);
   if (gameOver) {
     GameOver();
     return;
   }
+  let deltaTime = currentTime - lastFrameTime;
+  lastFrameTime = currentTime;
+
   context.clearRect(0, 0, CONFIG.boardWidth, CONFIG.boardHeight);
 
-  bird.update();
+  bird.update(deltaTime);
   bird.draw();
 
   pipeArray.forEach((pipe, index) => {
-    pipe.update();
+    pipe.update(deltaTime);
     pipe.draw();
 
     if (!pipe.passed && bird.x > pipe.x + pipe.width) {
@@ -219,7 +231,8 @@ function GameOver() {
       bird.velocityY = 0;
       GameOverModal.innerHTML = "";
       GameOverModal.style.display = "none";
-
+      bird.x = CONFIG.boardWidth / 8;
+      bird.y = CONFIG.boardHeight / 2;
       InitializeGame();
     });
   }
