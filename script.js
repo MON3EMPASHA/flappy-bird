@@ -20,10 +20,10 @@ const CONFIG = {
   velocityX: 2,
 };
 
-const PipeIntervalTime = 870;
+const PipeIntervalTime = 970;
 const BirdGravityTime = 20;
 const PipeGravityTime = 7;
-const jumpCooldown = 100; // Cooldown in milliseconds
+const jumpCooldown = 100;
 
 // Game variables
 let board, context;
