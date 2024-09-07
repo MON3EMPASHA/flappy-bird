@@ -14,12 +14,12 @@ const CONFIG = {
   pipeWidth: 64,
   pipeHeight: 512,
   pipeGap: 180,
-  gravity: 0.3,
+  gravity: 0.4,
   jumpPower: 7,
   velocityX: 2,
 };
 
-const PipeIntervalTime = 800;
+const PipeIntervalTime = 870;
 const BirdGravityTime = 20;
 const PipeGravityTime = 7;
 const jumpCooldown = 100; // Cooldown in milliseconds
