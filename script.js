@@ -1,7 +1,8 @@
 if (!localStorage.getItem("highScore")) {
   localStorage.setItem("highScore", 0);
 }
-
+const audio = new Audio("./Sot_Elbata.mp3");
+audio.volume = 0.2;
 let lastFrameTime = 0;
 let GameOverModal = document.getElementById("gameovermodal");
 
@@ -92,6 +93,7 @@ class Pipe {
 
 // Game initialization
 function InitializeGame() {
+  audio.play();
   lastFrameTime = 0;
   board = document.getElementById("board");
   board.width = CONFIG.boardWidth;
@@ -215,6 +217,7 @@ function DrawScene(currentTime) {
 }
 
 function GameOver() {
+  audio.play();
   let highscore = false;
   if (score > localStorage.getItem("highScore")) {
     localStorage.setItem("highScore", score);
