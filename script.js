@@ -2,7 +2,7 @@ if (!localStorage.getItem("highScore")) {
   localStorage.setItem("highScore", 0);
 }
 const audio = new Audio("./Sot_Elbata.mp3");
-audio.volume = 0.2;
+audio.volume = 0.8;
 let lastFrameTime = 0;
 let GameOverModal = document.getElementById("gameovermodal");
 
