@@ -1,8 +1,10 @@
 if (!localStorage.getItem("highScore")) {
   localStorage.setItem("highScore", 0);
 }
+
 let lastFrameTime = 0;
 let GameOverModal = document.getElementById("gameovermodal");
+
 // Configuration constants
 const CONFIG = {
   boardWidth: 360,
@@ -16,9 +18,11 @@ const CONFIG = {
   jumpPower: 9,
   velocityX: 2,
 };
+
 const PipeIntervalTime = 800;
 const BirdGravityTime = 20;
 const PipeGravityTime = 7;
+const jumpCooldown = 100; // Cooldown in milliseconds
 
 // Game variables
 let board, context;
@@ -27,6 +31,7 @@ let gameOver = false;
 let score = 0;
 let bird;
 let pipeInterval;
+let lastJumpTime = 0;
 
 // Bird class
 class Bird {
@@ -56,7 +61,11 @@ class Bird {
   }
 
   jump() {
-    this.velocityY = -CONFIG.jumpPower;
+    const now = Date.now();
+    if (now - lastJumpTime > jumpCooldown) {
+      this.velocityY = -CONFIG.jumpPower;
+      lastJumpTime = now;
+    }
   }
 }
 
@@ -104,15 +113,13 @@ function InitializeGame() {
   pipeArray = [];
   document.addEventListener("keydown", (e) => {
     if (e.code === "Space" || e.code === "ArrowUp") {
-      e.preventDefault();
       bird.jump();
     }
   });
   document.addEventListener("touchstart", (e) => {
-    e.preventDefault();
+    e.preventDefault(); // Prevent scrolling on mobile
     bird.jump();
   });
-
   document.addEventListener("click", (e) => {
     bird.jump();
   });
@@ -163,7 +170,6 @@ function detectCollision(a, b) {
 
 // Game loop
 function DrawScene(currentTime) {
-  // console.log(currentTime);
   if (gameOver) {
     GameOver();
     return;
@@ -204,6 +210,7 @@ function DrawScene(currentTime) {
   context.fillStyle = "white";
   context.font = "20px Arial";
   context.fillText("High Score: " + localStorage.getItem("highScore"), 215, 30);
+
   requestAnimationFrame(DrawScene);
 }
 
@@ -213,7 +220,6 @@ function GameOver() {
     localStorage.setItem("highScore", score);
     highscore = true;
   }
-  // console.log("Game Over");
   clearInterval(pipeInterval);
   GameOverModal.style.display = "block";
 
@@ -240,5 +246,6 @@ function GameOver() {
     });
   }
 }
+
 // Start the game
 window.onload = InitializeGame;
