@@ -13,7 +13,7 @@ const CONFIG = {
   pipeHeight: 512,
   pipeGap: 180,
   gravity: 0.3,
-  jumpPower: 5,
+  jumpPower: 9,
   velocityX: 2,
 };
 const PipeIntervalTime = 800;
@@ -104,10 +104,12 @@ function InitializeGame() {
   pipeArray = [];
   document.addEventListener("keydown", (e) => {
     if (e.code === "Space" || e.code === "ArrowUp") {
+      e.preventDefault();
       bird.jump();
     }
   });
   document.addEventListener("touchstart", (e) => {
+    e.preventDefault();
     bird.jump();
   });
 
@@ -166,7 +168,8 @@ function DrawScene(currentTime) {
     GameOver();
     return;
   }
-  let deltaTime = currentTime - lastFrameTime;
+  const MAX_DELTA_TIME = 100; // milliseconds
+  let deltaTime = Math.min(currentTime - lastFrameTime, MAX_DELTA_TIME);
   lastFrameTime = currentTime;
 
   context.clearRect(0, 0, CONFIG.boardWidth, CONFIG.boardHeight);
