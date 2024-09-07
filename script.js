@@ -15,7 +15,7 @@ const CONFIG = {
   pipeHeight: 512,
   pipeGap: 180,
   gravity: 0.3,
-  jumpPower: 9,
+  jumpPower: 7,
   velocityX: 2,
 };
 
