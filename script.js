@@ -103,9 +103,12 @@ function InitializeGame() {
   bird = new Bird(
     CONFIG.boardWidth / 8, //x
     CONFIG.boardHeight / 2, //y
-    CONFIG.birdWidth, //w
-    CONFIG.birdHeight, //h
-    "./imgs/flappybird.png" //img src
+    //CONFIG.birdWidth, //w
+    //CONFIG.birdHeight, //h
+    35,
+    45,
+    // "./imgs/flappybird.png" //img src
+    "./badabedo.jpeg"
   );
 
   topPipeImg = "./imgs/toppipe.png";
