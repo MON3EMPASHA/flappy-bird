@@ -107,8 +107,8 @@ function InitializeGame() {
     //CONFIG.birdHeight, //h
     35,
     45,
-    // "./imgs/flappybird.png" //img src
-    "./badabedo.jpeg"
+    "./imgs/flappybird.png" //img src
+    // "./badabedo.jpeg"
   );
 
   topPipeImg = "./imgs/toppipe.png";
